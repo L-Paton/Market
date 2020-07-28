@@ -22,11 +22,6 @@ public class AuthController {
 		return "login";
 	}
 	
-	@PostMapping("/login")
-	public String loginPost() {
-		return null;
-	}
-	
 	@PostMapping("/logout")
 	public String logout() {
 		return null;

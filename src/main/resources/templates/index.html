@@ -26,7 +26,7 @@
 
 				<ul class="nav navbar-nav">
 					<li class="active"><a th:href="@{/}">Inicio</a></li>
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/misproductos}">Mis Productos</a></li> 
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/producto/lista}">Mis Productos</a></li> 
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/miscompras}">Mis Compras</a></li>
 				</ul>
 
@@ -39,7 +39,7 @@
 					</li>
 					<li sec:authorize="isAuthenticated()" class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
-						<span>Menú</span> <span class="caret"></span>
+						<span th:text="${#authentication.name}">Menú</span> <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li>

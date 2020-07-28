@@ -24,7 +24,7 @@
 			
 				<ul class="nav navbar-nav">
 					<li class="active"><a th:href="@{/}">Inicio</a></li>
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/misproductos}">Mis Productos</a></li> 
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/producto/lista}">Mis Productos</a></li> 
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/miscompras}">Mis Compras</a></li>
 				</ul>
 				
@@ -69,13 +69,6 @@
 						<label for="email" class="col-md-3 control-label">Email</label>
 						<div class="col-md-9">
 							<input type="text" class="form-control" name="email" placeholder="Email" th:field="*{email}">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="nombre" class="col-md-3 control-label">Username</label>
-						<div class="col-md-9">
-							<input type="text" class="form-control" name="username" placeholder="Username"  th:field="*{username}">
 						</div>
 					</div>
 
