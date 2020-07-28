@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<title>LibrosSegundaMano</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+	<div class="jumbotron">
+		<div class="container text-center">
+			<h1>Libros de segunda mano</h1>
+		</div>
+	</div>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{/}">SHM</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			
+				<ul class="nav navbar-nav">
+					<li class="active"><a th:href="@{/}">Inicio</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/misproductos}">Mis Productos</a></li> 
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/miscompras}">Mis Compras</a></li>
+				</ul>
+				
+				<ul class="nav navbar-nav navbar-right">
+					<li sec:authorize="isAuthenticated()">
+						<a th:href="@{/app/carrito}"> <span class="glyphicon glyphicon-shopping-cart"></span> Carrito</a>
+					</li>
+					<li sec:authorize="!isAuthenticated()" class="active">
+						<a th:href="@{/auth/login}"><span class="glyphicon glyphicon-user"></span> Registro</a>
+					</li>
+					<li sec:authorize="isAuthenticated()" class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							<span>Menú</span> <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a
+								href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="container">
+	<div id="signupbox" style="margin-top: 50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+		<div class="panel panel-danger">
+			
+			<div class="panel-heading">
+				<div class="panel-title">Crear una nueva cuenta</div>
+			</div>
+			
+			<div class="panel-body">
+				<form id="signupform" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" th:action="@{/registry}" th:object="${usuario}">
+
+					<div id="signupalert" style="display: none" class="alert alert-danger">
+						<p>Error:</p>
+						<span></span>
+					</div>
+					<div class="form-group">
+						<label for="email" class="col-md-3 control-label">Email</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="email" placeholder="Email" th:field="*{email}">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="nombre" class="col-md-3 control-label">Username</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="username" placeholder="Username"  th:field="*{username}">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="nombre" class="col-md-3 control-label">Nombre</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="nombre" placeholder="Nombre"  th:field="*{nombre}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="apellidos" class="col-md-3 control-label">Apellidos</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="apellidos" placeholder="Apellidos" th:field="*{apellidos}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="password" class="col-md-3 control-label">Password</label>
+						<div class="col-md-9">
+							<input type="password" class="form-control" name="passwd" placeholder="Password" th:field="*{password}">
+						</div>
+					</div>
+					<div class="form-group">
+						<!-- Button -->
+						<div class="col-md-offset-3 col-md-9">
+							<button id="btn-signup" type="submit" class="btn btn-info"> Continuar</button>
+							<span style="margin-left: 8px;">o&nbsp;</span> 
+							<a href="@{/login}" type="button" class="btn btn-default">Volver al formulario de login</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
