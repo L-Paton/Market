@@ -64,13 +64,13 @@
 				<div class="panel panel-default panel-producto">
 					<a th:href="@{/producto/{id}(id=${producto.id})}" style="display: none"></a>
 					<div class="panel-heading">
-						<span>NOMBRE DEL PRODUCTO</span>
+						<span th:text="${producto.nombre}">NOMBRE DEL PRODUCTO</span>
 					</div>
+					
 					<div class="panel-body">
 						<img src="http://placehold.it/350x260"
 							th:src="${#strings.isEmpty(producto.imagen)} ? 'http://placehold.it/350x260' : ${producto.imagen}"
-							class="img-responsive center-block" alt="Image"
-							style="height: 300px;">
+							class="img-responsive center-block" alt="Image" style="height: 300px;">
 					</div>
 					<div class="panel-footer">
 						<div class="row">
@@ -78,8 +78,7 @@
 								<span class="precio"
 									th:text="${#numbers.formatCurrency(producto.precio)}"></span>
 							</div>
-							<div class="col-md-6" sec:authorize="isAuthenticated()"
-								th:if="${#authentication.name != producto.propietario.email}">
+							<div class="col-md-6" sec:authorize="isAuthenticated()">
 								<a th:href="@{/carrito/add/{id}(id=${producto.id})}"
 									class="pull-right btn btn-success btn-product"><span
 									class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Comprar</a>
@@ -87,7 +86,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

@@ -3,11 +3,14 @@ package com.laura.spring.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.laura.spring.model.Producto;
 import com.laura.spring.model.Usuario;
 import com.laura.spring.repository.ProductoRepositorio;
+import com.laura.spring.repository.UsuarioRepositorio;
 import com.laura.spring.storage.StorageService;
 
 @Service
@@ -17,6 +20,9 @@ public class ProductoServicio {
 	ProductoRepositorio repositorio;
 	
 	@Autowired
+	UsuarioRepositorio usuarioRepositorio;
+	
+	@Autowired
 	StorageService storageService;
 	
 	public List<Producto> listaProductosUsuario(Usuario usuario){
@@ -24,6 +30,9 @@ public class ProductoServicio {
 	}
 	
 	public Producto addProducto(Producto p) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails)principal).getUsername();
+		p.setVendedor(usuarioRepositorio.getOne(username));
 		return repositorio.save(p);
 	}
 	

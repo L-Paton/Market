@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		UserBuilder builder = null;
 		
     	if (usuario != null) {
-			builder = User.withUsername(usuario.getNombre());
+			builder = User.withUsername(usuario.getEmail());
 			builder.password(usuario.getPassword());
 			builder.authorities(new SimpleGrantedAuthority("USER"));
 		} else {

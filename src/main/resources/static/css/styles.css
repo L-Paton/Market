@@ -9,6 +9,13 @@
 /* Remove the jumbotron's default bottom margin */
 .jumbotron {
 	margin-bottom: 0;
+	background-image: url('../imagenes/555.png') !important;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.jumbotron h1{
+	color: #e8e8e8;
 }
 
 /* Add a gray background color and some padding to the footer */
@@ -17,12 +24,12 @@ footer {
 	padding: 25px;
 }
 
-@media (min-width: 1200px) {
+@media ( min-width : 1200px) {
 	.container {
 		width: 90%;
 		max-width: 90%;
 	}
-  }
+}
 
 .panel-heading {
 	font-size: 18px;
@@ -40,19 +47,18 @@ footer {
 }
 
 /* Estilos para la factura */
-
 .invoice-title h2, .invoice-title h3 {
-    display: inline-block;
+	display: inline-block;
 }
 
-.invoice-body .table > tbody > tr > .no-line {
-    border-top: none;
+.invoice-body .table>tbody>tr>.no-line {
+	border-top: none;
 }
 
-.invoice-body .table > thead > tr > .no-line {
-    border-bottom: none;
+.invoice-body .table>thead>tr>.no-line {
+	border-bottom: none;
 }
 
-.invoice-body .table > tbody > tr > .thick-line {
-    border-top: 2px solid;
+.invoice-body .table>tbody>tr>.thick-line {
+	border-top: 2px solid;
 }
