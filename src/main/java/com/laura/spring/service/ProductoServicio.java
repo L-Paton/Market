@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.laura.spring.model.Producto;
 import com.laura.spring.model.Usuario;
 import com.laura.spring.repository.ProductoRepositorio;
-import com.laura.spring.repository.UsuarioRepositorio;
 import com.laura.spring.storage.StorageService;
 
 @Service
@@ -20,10 +19,14 @@ public class ProductoServicio {
 	ProductoRepositorio repositorio;
 	
 	@Autowired
-	UsuarioRepositorio usuarioRepositorio;
+	UsuarioServicio usuarioServicio;
 	
 	@Autowired
 	StorageService storageService;
+	
+	public Producto getProductoById(long id) {
+		return repositorio.getOne(id);
+	}
 	
 	public List<Producto> listaProductosUsuario(Usuario usuario){
 		return repositorio.findByVendedor(usuario);
@@ -32,7 +35,7 @@ public class ProductoServicio {
 	public Producto addProducto(Producto p) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails)principal).getUsername();
-		p.setVendedor(usuarioRepositorio.getOne(username));
+		p.setVendedor(usuarioServicio.getUserById(username));
 		return repositorio.save(p);
 	}
 	

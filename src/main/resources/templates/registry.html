@@ -25,15 +25,15 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a th:href="@{/}">Inicio</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/producto/lista}">Mis Productos</a></li> 
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/miscompras}">Mis Compras</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/compras}">Mis Compras</a></li>
 				</ul>
 				
 				<ul class="nav navbar-nav navbar-right">
 					<li sec:authorize="isAuthenticated()">
-						<a th:href="@{/app/carrito}"> <span class="glyphicon glyphicon-shopping-cart"></span> Carrito</a>
+						<a th:href="@{/carrito}"> <span class="glyphicon glyphicon-shopping-cart"></span> Carrito</a>
 					</li>
 					<li sec:authorize="!isAuthenticated()" class="active">
-						<a th:href="@{/auth/login}"><span class="glyphicon glyphicon-user"></span> Registro</a>
+						<a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span> Registro</a>
 					</li>
 					<li sec:authorize="isAuthenticated()" class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

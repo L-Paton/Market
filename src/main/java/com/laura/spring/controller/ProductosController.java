@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.laura.spring.model.Producto;
-import com.laura.spring.repository.UsuarioRepositorio;
 import com.laura.spring.service.ProductoServicio;
+import com.laura.spring.service.UsuarioServicio;
 import com.laura.spring.storage.StorageService;
 
 @Controller
@@ -27,7 +27,7 @@ public class ProductosController {
 	ProductoServicio productoServicio;
 
 	@Autowired
-	UsuarioRepositorio usuarioRepositorio;
+	UsuarioServicio usuarioServicio;
 
 	@Autowired
 	StorageService storageService;
@@ -38,7 +38,7 @@ public class ProductosController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails)principal).getUsername();
 		
-		model.addAttribute("productos", productoServicio.listaProductosUsuario(usuarioRepositorio.getOne(username)));
+		model.addAttribute("productos", productoServicio.listaProductosUsuario(usuarioServicio.getUserById(username)));
 		return "producto/lista";
 	}
 

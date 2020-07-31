@@ -20,5 +20,9 @@ public class UsuarioServicio {
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		return repositorio.save(usuario);
 	}
+	
+	public Usuario getUserById(String id) {
+		return repositorio.getOne(id);
+	}
 
 }
