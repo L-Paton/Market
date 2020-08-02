@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<title>LibrosSegundaMano</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-	<link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
+<title>LibrosSegundaMano</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet" href="../static/css/styles.css"
+	th:href="@{/css/styles.css}">
 </head>
 <body>
 
@@ -23,26 +27,26 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li><a th:href="@{/}">Inicio</a></li>
-					<li class="active" sec:authorize="isAuthenticated()"><a th:href="@{/producto/lista}">Mis Productos</a></li>
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/compras}">Mis Compras</a></li>
+					<li class="active" sec:authorize="isAuthenticated()"><a
+						th:href="@{/producto/lista}">Mis Productos</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/compras}">Mis
+							Compras</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li sec:authorize="isAuthenticated()">
-						<a th:href="@{/carrito}"><span class="glyphicon glyphicon-shopping-cart"></span> Carrito</a>
-					</li>
-					<li sec:authorize="!isAuthenticated()">
-						<a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span> Login</a>
-					</li>
-					<li sec:authorize="isAuthenticated()" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
-							<span th:text="${#authentication.name}">Menú</span> <span class="caret"></span>
-						</a>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/carrito}"><span
+							class="glyphicon glyphicon-shopping-cart"></span> Carrito</a></li>
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}"><span
+							class="glyphicon glyphicon-user"></span> Login</a></li>
+					<li sec:authorize="isAuthenticated()" class="dropdown"><a
+						href="#" class="dropdown-toggle" data-toggle="dropdown"
+						role="button" aria-haspopup="true" aria-expanded="false"> <span
+							th:text="${#authentication.name}">Menú</span> <span class="caret"></span>
+					</a>
 						<ul class="dropdown-menu">
 							<li><a
 								href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
 							</li>
-						</ul>
-					</li>
+						</ul></li>
 				</ul>
 				<form class="navbar-form navbar-right">
 					<input type="text" class="form-control" placeholder="Buscar..."
@@ -57,7 +61,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-10 col-md-2" style="margin-bottom: 20px;">
-				<a th:href="@{/producto/form}" class="btn btn-lg btn-info">Nuevo producto</a>
+				<a th:href="@{/producto/form}" class="btn btn-lg btn-info">Nuevo
+					producto</a>
 			</div>
 		</div>
 		<div class="row">
@@ -65,25 +70,39 @@
 
 				<div class="panel panel-default panel-producto">
 					<div class="panel-heading">
-						
-						<span th:text="${producto.nombre}">NOMBRE DEL PRODUCTO</span> 
-							
-							<a data-toggle="modal" data-target="#delete-modal" th:data-id="${producto.id}" class="close" aria-label="close">&times;</a>
+					
+						<form th:action="@{/producto/eliminar}" method="POST">
+							<input type="hidden" name="idProducto" th:value="${producto.id}" />
+							<button type="submit" class="close pull-right " aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</form>
+						<span th:text="${producto.nombre}">NOMBRE DEL PRODUCTO</span>
+						<!-- <a
+							data-toggle="modal" data-target="#delete-modal"
+							th:data-id="${producto.id}" class="close" aria-label="close">&times;</a> -->
+
+
 					</div>
 					<div class="panel-body">
-						<img th:src="${#strings.isEmpty(producto.imagen)} ? 'http://placehold.it/350x260' : ${producto.imagen}"
+						<img
+							th:src="${#strings.isEmpty(producto.imagen)} ? 'http://placehold.it/200x300' : ${producto.imagen}"
 							class="img-responsive center-block" alt="Image"
 							style="height: 300px;">
 					</div>
+
+
+
 					<div class="panel-footer">
 						<div class="row">
 							<div class="col-md-9 precio">
-								<span class="precio" th:text="${#numbers.formatCurrency(producto.precio)}"></span>
+								<span class="precio"
+									th:text="${#numbers.formatCurrency(producto.precio)}"></span>
 							</div>
 							<div class="col-md-3">
 
 								<h4>
-							<!-- 		<span th:if="${producto.compra != null} "
+									<!-- 		<span th:if="${producto.compra != null} "
 										class="label label-success">Vendido</span> <span
 										th:unless="${producto.compra != null} "
 										class="label label-info">Sin vender</span> -->
@@ -99,51 +118,12 @@
 	</div>
 	<br>
 	<br>
-
-	<!-- 							 
- -->
-	<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">Borrar producto</h4>
-				</div>
-				<div class="modal-body">
-					<p>¿Está usted seguro de borrar este producto?</p>
-					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-					<a href="#" class="btn btn-danger">Sí</a>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
 		th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#delete-modal').on('show.bs.modal', function(event) {
-				var button = $(event.relatedTarget);
-				var data = button.data('id');
-
-				var modal = $(this);
-
-				var a = modal.find('.modal-body a')[0];
-				a.href = '/producto/' + data + '/eliminar';
-
-			});
-		});
-	</script>
 
 </body>
 </html>

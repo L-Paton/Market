@@ -13,4 +13,5 @@ public interface CompraRepositorio extends JpaRepository<Compra, Long>{
 	List<Compra> findByComprador(Usuario usuario);
 	
 	List<Compra> findByProducto(Producto producto);
+	
 }

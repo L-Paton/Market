@@ -27,29 +27,26 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li><a th:href="@{/}">Inicio</a></li>
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/productos}">Mis Productos</a></li>
+					<li class="active"><a th:href="@{/}">Inicio</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/producto/lista}">Mis Productos</a></li> 
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/compras}">Mis Compras</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/carrito}" class="active">
 						<span class="glyphicon glyphicon-shopping-cart"></span> Carrito</a></li>
-					<li sec:authorize="!isAuthenticated()">
-						<a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">
+						<span class="glyphicon glyphicon-user"></span> Login</a>
+					</li>
 					<li sec:authorize="isAuthenticated()" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
-							<span th:text="${#authentication.name}">Menú</span> <span class="caret"></span>
-						</a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span th:text="${#authentication.name}">Menú</span> <span class="caret"></span>
+					</a>
 						<ul class="dropdown-menu">
 							<li><a
 								href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
 							</li>
 						</ul></li>
 				</ul>
-				<form class="navbar-form navbar-right">
-					<input type="text" class="form-control" placeholder="Buscar..."
-						name="q" th:value="${param.q}">
-				</form>
 			</div>
 		</div>
 	</nav>
@@ -70,8 +67,7 @@
 					<div class="col-xs-6">
 						<address>
 							<strong>Comprado por:</strong><br> <span
-								th:text="${compra.vendedor.nombre + ' ' + compra.vendedor.apellidos}"></span><br>
-							<span th:text="${compra.vendedor.email}"></span><br>
+								th:text="${compra.comprador.nombre + ' ' + compra.comprador.apellidos}"></span><br>
 						</address>
 					</div>
 					<div class="col-xs-6 text-right">
@@ -103,14 +99,14 @@
 									</tr>
 								</thead>
 								<tbody>									
-									<tr th:each="producto : ${productos}">
-										<td><span th:text="${producto.nombre}">Producto</span></td>
-										<td class="text-right"><span th:text="${#numbers.formatCurrency(producto.precio)}">123€</span></td>
+									<tr>
+										<td><span th:text="${compra.producto.nombre}">Producto</span></td>
+										<td class="text-right"><span th:text="${#numbers.formatCurrency(compra.producto.precio)}">123€</span></td>
 									</tr>
 									<tr>
 										<td class="thick-line text-right"><strong>Total</strong></td>
 										<td class="thick-line text-right"><span
-											th:text="${#numbers.formatCurrency(total_compra)}">123€</span></td>
+											th:text="${#numbers.formatCurrency(compra.producto.precio)}"></span></td>
 									</tr>
 								</tbody>
 							</table>

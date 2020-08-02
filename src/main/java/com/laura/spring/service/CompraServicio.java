@@ -1,5 +1,6 @@
 package com.laura.spring.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,25 @@ public class CompraServicio {
 		repositorio.delete(repositorio.getOne(id));
 	}
 	
-	public List<Compra> findByComprador(Usuario usuario) {
-		return repositorio.findByComprador(usuario);
+	public void finalizarCompra(Usuario usuario) {
+		repositorio.findByComprador(usuario).forEach(c -> c.setFinalizada(true));
+		repositorio.flush();
+	}
+	
+	public Compra findById(long id) {
+		return repositorio.getOne(id);
+	}
+	
+	public List<Compra> comprasFinalizadas(Usuario usuario){
+		List<Compra> lista = new ArrayList<>();
+		repositorio.findByComprador(usuario).stream().filter(c -> c.isFinalizada()).forEach(c -> lista.add(c));
+		return lista;
+	}
+	
+	public List<Compra> comprasNoFinalizadas(Usuario usuario) {
+		List<Compra> lista = new ArrayList<>();
+		repositorio.findByComprador(usuario).stream().filter(c -> !c.isFinalizada()).forEach(c -> lista.add(c));
+		return lista;
 	}
 	
 	public List<Compra> findByProducto(Producto producto){

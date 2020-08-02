@@ -9,8 +9,8 @@
 </head>
 <body>
 
-	<div class="jumbotron">
-		<div class="container text-center">
+	<div class="jumbotron bg-dark">
+		<div class="container text-center ">
 			<h1>Libros de segunda mano</h1>
 		</div>
 	</div>
@@ -69,7 +69,7 @@
 					
 					<div class="panel-body">
 						<img src="http://placehold.it/350x260"
-							th:src="${#strings.isEmpty(producto.imagen)} ? 'http://placehold.it/350x260' : ${producto.imagen}"
+							th:src="${#strings.isEmpty(producto.imagen)} ? 'http://placehold.it/200x300' : ${producto.imagen}"
 							class="img-responsive center-block" alt="Image" style="height: 300px;">
 					</div>
 					<div class="panel-footer">
@@ -84,7 +84,7 @@
 									class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Comprar</a>-->
 								<form th:action="@{/carrito/add}" method="POST">
 									<input type="hidden" name="id" th:value="${producto.id}"/>
-									<button class="pull-right btn btn-success btn-product" type="submit">
+									<button class="pull-right btn btn-success btn-product" type="submit" th:unless="${producto.vendedor.email == #authentication.name}">
 										<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Comprar
 									</button>
 								</form>

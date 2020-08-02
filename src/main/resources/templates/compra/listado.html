@@ -28,10 +28,8 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li><a th:href="@{/}">Inicio</a></li>
-					<li sec:authorize="isAuthenticated()"><a
-						th:href="@{/productos}">Mis Productos</a></li>
-					<li sec:authorize="isAuthenticated()"><a
-						th:href="@{/compras}">Mis Compras</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/producto/lista}">Mis Productos</a></li>
+					<li class="active" sec:authorize="isAuthenticated()"><a th:href="@{/compra/lista}">Mis Compras</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/carrito}" class="active">
@@ -60,7 +58,7 @@
 		<div class="col-md-offset-1 col-md-10">
 				<div class="jumbotron">
 					<div class="container">
-						<h2 class="text-center">Aún no ha seleccionado ningún producto para comprar</h2>
+						<h2 class="text-center text-light">Aún no ha seleccionado ningún producto para comprar</h2>
 					</div>
 				</div>
 			</div>

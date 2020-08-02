@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.laura.spring.model.Producto;
+import com.laura.spring.model.Usuario;
 import com.laura.spring.service.ProductoServicio;
 import com.laura.spring.service.UsuarioServicio;
 import com.laura.spring.storage.StorageService;
@@ -34,11 +34,7 @@ public class ProductosController {
 
 	@GetMapping("/lista")
 	public String listaProductos(Model model) {
-		
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((UserDetails)principal).getUsername();
-		
-		model.addAttribute("productos", productoServicio.listaProductosUsuario(usuarioServicio.getUserById(username)));
+		model.addAttribute("productos", productoServicio.listaProductosUsuario(getUser()));
 		return "producto/lista";
 	}
 
@@ -59,11 +55,16 @@ public class ProductosController {
 		return "redirect:/producto/lista";
 	}
 
-	// cambiar de método (lista.html)
-	@GetMapping("/{id}/eliminar")
-	public String eliminarProducto(@PathVariable Long id) {
+	@PostMapping("/eliminar")
+	public String eliminarProducto(@RequestParam("idProducto") Long id) {
 		productoServicio.deleteProducto(id);
 		return "redirect:/producto/lista";
+	}
+	
+	private Usuario getUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails)principal).getUsername();
+		return usuarioServicio.getUserById(username);
 	}
 
 }

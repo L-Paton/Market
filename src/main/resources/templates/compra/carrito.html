@@ -28,7 +28,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 			
 				<ul class="nav navbar-nav">
-					<li class="active"><a th:href="@{/}">Inicio</a></li>
+					<li><a th:href="@{/}">Inicio</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/producto/lista}">Mis Productos</a></li> 
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/compras}">Mis Compras</a></li>
 				</ul>
@@ -128,9 +128,16 @@
 								</a>
 							</td>
 							<td>
-								<a th:href="@{/carrito/finalizar}" class="btn btn-success">
+								<!-- <a th:href="@{/carrito/finalizar}" class="btn btn-success">
 									Finalizar compra <span class="glyphicon glyphicon-play"></span>
-								</a>
+								</a>-->
+								
+								<form th:action="@{/carrito/finalizar}" method="POST">
+									<input type="hidden"/>
+									<button type="submit" class="btn btn-success">
+										Finalizar compra <span class="glyphicon glyphicon-play"></span>
+									</button>
+								</form>
 							</td>
 						</tr>
 					</tbody>

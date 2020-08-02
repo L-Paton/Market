@@ -12,9 +12,10 @@
 	background-image: url('../imagenes/555.png') !important;
 	background-size: cover;
 	background-repeat: no-repeat;
+	background-color: #292929;
 }
 
-.jumbotron h1{
+.jumbotron h1, .jumbotron h2{
 	color: #e8e8e8;
 }
 
