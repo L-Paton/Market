@@ -10,4 +10,7 @@ import com.laura.spring.model.Usuario;
 public interface ProductoRepositorio extends JpaRepository<Producto, Long>{
 
 	List<Producto> findByVendedor(Usuario usuario);
+	
+	List<Producto> findByVendido(boolean b);
+	
 }

@@ -1,12 +1,9 @@
 package com.laura.spring.model;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
 
 @Entity
 public class Producto {
@@ -18,6 +15,7 @@ public class Producto {
 	private String nombre;
 	private double precio;
 	private String imagen;
+	private boolean vendido;
 	
 	@ManyToOne
 	private Usuario vendedor;
@@ -26,13 +24,15 @@ public class Producto {
 		
 	}
 	
-	public Producto(@NotNull String nombre, @NotNull double precio, String imagen, Usuario vendedor) {
+	public Producto(String nombre, double precio, String imagen, boolean vendido, Usuario vendedor) {
 		super();
 		this.nombre = nombre;
 		this.precio = precio;
 		this.imagen = imagen;
+		this.vendido = vendido;
 		this.vendedor = vendedor;
 	}
+
 
 	public long getId() {
 		return id;
@@ -63,6 +63,14 @@ public class Producto {
 	}
 	public void setVendedor(Usuario vendedor) {
 		this.vendedor = vendedor;
+	}
+
+	public boolean isVendido() {
+		return vendido;
+	}
+
+	public void setVendido(boolean vendido) {
+		this.vendido = vendido;
 	}
 
 }

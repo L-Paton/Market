@@ -79,9 +79,6 @@
 									th:text="${#numbers.formatCurrency(producto.precio)}"></span>
 							</div>
 							<div class="col-md-6" sec:authorize="isAuthenticated()">
-								<!-- <a th:href="@{/carrito/add/{id}(id=${producto.id})}"
-									class="pull-right btn btn-success btn-product"><span
-									class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Comprar</a>-->
 								<form th:action="@{/carrito/add}" method="POST">
 									<input type="hidden" name="id" th:value="${producto.id}"/>
 									<button class="pull-right btn btn-success btn-product" type="submit" th:unless="${producto.vendedor.email == #authentication.name}">

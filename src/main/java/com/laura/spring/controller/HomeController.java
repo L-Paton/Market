@@ -5,17 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.laura.spring.repository.ProductoRepositorio;
+import com.laura.spring.service.ProductoServicio;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
-	ProductoRepositorio repositorio;
+	ProductoServicio productoServicio;
 	
 	@GetMapping({"/", "/home"})
 	public String index(Model model) {
-		model.addAttribute("productos", repositorio.findAll());
+		model.addAttribute("productos", productoServicio.listaProductosNoVendidos());
 		return "index";
 	}
 }

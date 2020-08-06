@@ -51,6 +51,8 @@ public class ProductosController {
 			String uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(name).toUriString();
 			producto.setImagen(uri);
 		}
+		producto.setVendedor(getUser());
+		producto.setVendido(false);
 		productoServicio.addProducto(producto);
 		return "redirect:/producto/lista";
 	}

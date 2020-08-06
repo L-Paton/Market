@@ -26,7 +26,11 @@ public class CompraServicio {
 	}
 	
 	public void finalizarCompra(Usuario usuario) {
-		repositorio.findByComprador(usuario).forEach(c -> c.setFinalizada(true));
+		repositorio.findByComprador(usuario).forEach(c -> {
+			if(!c.getProducto().isVendido()) {
+				c.setFinalizada(true); c.getProducto().setVendido(true);
+			}
+		});
 		repositorio.flush();
 	}
 	
@@ -42,7 +46,7 @@ public class CompraServicio {
 	
 	public List<Compra> comprasNoFinalizadas(Usuario usuario) {
 		List<Compra> lista = new ArrayList<>();
-		repositorio.findByComprador(usuario).stream().filter(c -> !c.isFinalizada()).forEach(c -> lista.add(c));
+		repositorio.findByComprador(usuario).stream().filter(c -> !c.isFinalizada() && !c.getProducto().isVendido()).forEach(c -> lista.add(c));
 		return lista;
 	}
 	

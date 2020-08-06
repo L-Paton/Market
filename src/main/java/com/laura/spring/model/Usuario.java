@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -15,15 +16,19 @@ public class Usuario {
 	
 	@Id
 	@Email
+	@NotBlank
 	private String email;
 	
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaAlta;
 	
+	@NotBlank
 	private String password;
 	private String avatar;
+	@NotBlank
 	private String nombre;
+	@NotBlank
 	private String apellidos;
 	
 	public Usuario() {

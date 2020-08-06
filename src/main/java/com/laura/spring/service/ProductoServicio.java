@@ -3,8 +3,6 @@ package com.laura.spring.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.laura.spring.model.Producto;
@@ -32,16 +30,17 @@ public class ProductoServicio {
 		return repositorio.findByVendedor(usuario);
 	}
 	
+	public List<Producto> listaProductosNoVendidos(){
+		return repositorio.findByVendido(false);
+	}
+	
 	public Producto addProducto(Producto p) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((UserDetails)principal).getUsername();
-		p.setVendedor(usuarioServicio.getUserById(username));
 		return repositorio.save(p);
 	}
 	
 	public void deleteProducto(long id) {
-		if (!repositorio.getOne(id).getImagen().isEmpty())
-				storageService.delete(repositorio.getOne(id).getImagen());
 		repositorio.deleteById(id);
+		if (!repositorio.getOne(id).getImagen().isEmpty() && repositorio.findById(id).get() == null)
+			storageService.delete(repositorio.getOne(id).getImagen());
 	}
 }
