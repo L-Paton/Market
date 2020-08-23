@@ -39,8 +39,13 @@ public class ProductoServicio {
 	}
 	
 	public void deleteProducto(long id) {
-		repositorio.deleteById(id);
-		if (!repositorio.getOne(id).getImagen().isEmpty() && repositorio.findById(id).get() == null)
-			storageService.delete(repositorio.getOne(id).getImagen());
+		Producto p = repositorio.findById(id).orElse(null);
+		String imagen = p.getImagen();
+		
+		if(p != null) {
+			repositorio.deleteById(id);
+			if (imagen != null && repositorio.findById(id).orElse(null) == null)
+				storageService.delete(p.getImagen());
+		}
 	}
 }
