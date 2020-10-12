@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,7 +26,7 @@ public class Compra {
 	@ManyToOne
 	private Usuario comprador;
 	
-	@ManyToOne
+	@OneToOne
 	private Producto producto;
 	
 	private boolean finalizada;

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
+@Table(name = "USERS")
 public class Usuario {
 	
 	@Id
@@ -25,9 +27,12 @@ public class Usuario {
 	
 	@NotBlank
 	private String password;
+	
 	private String avatar;
+	
 	@NotBlank
 	private String nombre;
+	
 	@NotBlank
 	private String apellidos;
 	

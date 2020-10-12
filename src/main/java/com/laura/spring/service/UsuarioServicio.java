@@ -17,8 +17,11 @@ public class UsuarioServicio {
 	BCryptPasswordEncoder passwordEncoder;
 	
 	public Usuario registrar(Usuario usuario) {
-		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-		return repositorio.save(usuario);
+		if(repositorio.findByEmail(usuario.getEmail()) == null) {
+			usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+			return repositorio.save(usuario);
+		}
+		return null;
 	}
 	
 	public Usuario getUserById(String id) {

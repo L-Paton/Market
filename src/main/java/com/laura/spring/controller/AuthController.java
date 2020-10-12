@@ -43,8 +43,8 @@ public class AuthController {
 		if (bindingResult.hasErrors()) {
 			return "registry";
 		}else {
-			usuarioServicio.registrar(usuario);
-			return "redirect:/login";
+			if(usuarioServicio.registrar(usuario) != null) return "redirect:/login";
+			else return "registry";
 		}
 	}
 
